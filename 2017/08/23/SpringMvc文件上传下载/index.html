@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="学术," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1、文件上传功能&amp;nbsp;&amp;nbsp;使用 webuploader 插件，SpringMVC文件上传介绍：&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;1、从官网下载该插件并导入项目&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2、引入文件到页面中&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;3、初始化该插件(启用自动上传的功能)： //初始化uploader var uploader =">
+<meta name="keywords" content="学术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SrpingMVC 实现文件上传下载">
+<meta property="og:url" content="http://yoursite.com/2017/08/23/SpringMvc文件上传下载/index.html">
+<meta property="og:site_name" content="Lover">
+<meta property="og:description" content="1、文件上传功能&amp;nbsp;&amp;nbsp;使用 webuploader 插件，SpringMVC文件上传介绍：&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;1、从官网下载该插件并导入项目&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2、引入文件到页面中&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;3、初始化该插件(启用自动上传的功能)： //初始化uploader var uploader =">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-23T03:54:30.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SrpingMVC 实现文件上传下载">
+<meta name="twitter:description" content="1、文件上传功能&amp;nbsp;&amp;nbsp;使用 webuploader 插件，SpringMVC文件上传介绍：&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;1、从官网下载该插件并导入项目&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2、引入文件到页面中&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;3、初始化该插件(启用自动上传的功能)： //初始化uploader var uploader =">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/23/SpringMvc文件上传下载/"/>
+
+
+
+
+
+  <title>SrpingMVC 实现文件上传下载 | Lover</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lover</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/23/SpringMvc文件上传下载/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xiao.Peng.Li">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lover">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SrpingMVC 实现文件上传下载</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-23T21:42:05+08:00">
+                2017-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1、文件上传功能<br>&nbsp;&nbsp;使用 <a href="http://fex.baidu.com/webuploader/" target="_blank" rel="external">webuploader</a> 插件，SpringMVC文件上传介绍：<br><br>&nbsp;&nbsp;&nbsp;&nbsp;1、从官网下载该插件并导入项目<br><br>&nbsp;&nbsp;&nbsp;&nbsp;2、引入文件到页面中<br><br>&nbsp;&nbsp;&nbsp;&nbsp;3、初始化该插件(启用自动上传的功能)：<br></p>
+<pre><code>//初始化uploader
+var uploader = WebUploader.create({
+    auto: true,
+    swf : &apos;../statics/plugins/webuploader/Uploader.swf&apos;,
+    server : &apos;../selfassessment/uploadfile&apos;,
+    pick : {
+        &quot;id&quot;: &apos;#picker&apos;,
+        &quot;multiple&quot;:false
+    },
+    fileVal : &apos;file&apos;, //提交到到后台，是要用&quot;multiFile&quot;这个名称属性来取文件的
+    fileNumLimit:5,//上传的文件总数 (我理解的意思是单次不刷新页面能上传的次数)
+    fileSingleSizeLimit: 2*1024*1024,
+    duplicate :true,
+    accept: {
+        title: &apos;Files&apos;,
+        extensions: &apos;gif,jpg,jpeg,bmp,png,doc,docx,pdf,txt,zip,rar,xlsx,ppt,pptx&apos;/*,
+        mimeTypes: &apos;file/*&apos;*/
+    },
+    formData: {
+        uid: 123
+    },
+
+    uploadSuccess : function(file) {
+        $(&apos;#&apos; + file.id).find(&apos;p.state&apos;).text(&apos;已上传&apos;);
+    },
+    uploadError : function(file) {
+        $(&apos;#&apos; + file.id).find(&apos;p.state&apos;).text(&apos;上传出错&apos;);
+    },
+    uploadComplete : function(file) {
+        $(&apos;#&apos; + file.id).find(&apos;.progress&apos;).fadeOut();
+    }
+});
+
+//uploader.options.formData.uid = $(&quot;selfAssessmentId&quot;).val();
+
+uploader.on( &apos;uploadBeforeSend&apos;, function( block, data ) {
+    // 修改data可以控制发送哪些携带数据。
+    data.uid = $(&apos;#selfAssessmentId&apos;).val();
+});
+
+uploader.on( &apos;fileQueued&apos;, function( file ) {
+    var $list = $(&apos;#thelist&apos;);
+    $list.append( &apos;&lt;div id=&quot;&apos; + file.id + &apos;&quot; class=&quot;item&quot;&gt;&apos; +
+        &apos;&lt;h4 class=&quot;info&quot;&gt;&apos; + file.name + &apos;&lt;/h4&gt;&apos; +
+        &apos;&lt;p class=&quot;state&quot;&gt;等待上传...&lt;/p&gt;&apos; +
+    &apos;&lt;/div&gt;&apos; );
+});
+
+uploader.on(&quot;error&quot;, function (type) {
+    if (type == &quot;Q_TYPE_DENIED&quot;) {
+        alert(&quot;上传的格式不正确,支持上传 gif, jpg, jpeg, bmp, png, doc, docx, pdf, txt, zip, rar, xlsx, ppt, pptx&quot;);
+    } else if (type == &quot;Q_EXCEED_SIZE_LIMIT&quot;) {
+        alert(&quot;文件大小不能超过2M&quot;);
+    } else if(type == &quot;F_EXCEED_SIZE&quot;) {
+        alert(&quot;文件过大,文件大小不能超过2M&quot;)
+    } else if(type== &quot;Q_EXCEED_NUM_LIMIT&quot;) {
+        alert(&quot;警告：您频繁上传且频繁删除附件已被系统检测，请规范你的操作！去刷新页面试试&quot;);
+    }
+    else {
+        alert(&quot;上传出错！请检查后重新上传！错误代码&quot;+type);
+    }
+});
+
+uploader.on( &apos;uploadProgress&apos;, function( file, percentage ) {
+    var $li = $( &apos;#&apos;+file.id ),
+    $percent = $li.find(&apos;.progress .progress-bar&apos;);
+    // 避免重复创建
+    if ( !$percent.length ) {
+        $percent = $(&apos;&lt;div class=&quot;progress progress-striped active&quot;&gt;&apos; +
+          &apos;&lt;div class=&quot;progress-bar&quot; role=&quot;progressbar&quot; style=&quot;width: 0%&quot;&gt;&apos; +
+          &apos;&lt;/div&gt;&apos; +
+        &apos;&lt;/div&gt;&apos;).appendTo( $li ).find(&apos;.progress-bar&apos;);
+    }
+    $li.find(&apos;p.state&apos;).text(&apos;上传中&apos;);
+    $percent.css( &apos;width&apos;, percentage * 100 + &apos;%&apos; );
+});
+
+uploader.on( &apos;uploadSuccess&apos;, function( file ) {
+    $( &apos;#&apos;+file.id ).find(&apos;p.state&apos;).text(&apos;已上传&apos;);
+    //这里是我自己的页面逻辑
+    $(&apos;.btns&apos;).css(&apos;display&apos;,&apos;none&apos;);
+    $(&apos;#removefile&apos;).css(&apos;display&apos;,&apos;inline&apos;);
+});
+
+uploader.on( &apos;uploadError&apos;, function( file ) {
+    $( &apos;#&apos;+file.id ).find(&apos;p.state&apos;).text(&apos;上传出错&apos;);
+});
+
+uploader.on( &apos;uploadComplete&apos;, function( file ) {
+    $( &apos;#&apos;+file.id ).find(&apos;.progress&apos;).fadeOut();
+    return;
+});
+
+$(&apos;#ctlBtn&apos;).on(&apos;click&apos;, function() {
+    console.log(&quot;上传...&quot;);
+    uploader.upload();
+    console.log(&quot;上传成功&quot;);
+});
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;4、页面代码处理：<br></p>
+<pre><code>&lt;div id=&quot;uploader&quot; class=&quot;wu-example&quot;&gt;
+ &lt;!--用来存放文件信息--&gt;
+    &lt;div id=&quot;thelist&quot; class=&quot;uploader-list&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;btns&quot;&gt;
+        &lt;div id=&quot;picker&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;top&quot; title=&quot;选择好文件后即立即上传&quot;&gt;选择附件&lt;/div&gt;
+        &lt;!-- &lt;button id=&quot;ctlBtn&quot; class=&quot;btn btn-default&quot;&gt;开始上传&lt;/button&gt; --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;5、mvc 后台处理：<br></p>
+<pre><code>@RequestMapping(value=&quot;/uploadfile&quot;)
+public void uploadfile(@RequestParam(&quot;file&quot;) MultipartFile file,HttpServletRequest request) throws Exception{
+    FileUtil util = new FileUtil();
+    String originFilename = file.getOriginalFilename().substring(0,file.getOriginalFilename().lastIndexOf(&quot;.&quot;));
+    String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(&quot;.&quot;) + 1);
+    String realPath = &quot;D:\\fileUpload\\&quot;;
+    File destFile = new File(realPath);
+    if (!destFile.exists()) {
+        destFile.mkdirs();
+    }
+    String fileNameNew = util.getFileNameNew() + &quot;.&quot; + suffix;
+    File f = new File(destFile.getAbsoluteFile() + &quot;/&quot; + fileNameNew);
+    file.transferTo(f);
+    f.createNewFile();
+    //AttachmentEntity该类是数据库存储附件信息的对应的基类
+    AttachmentEntity attachmentEntity = new AttachmentEntity();
+    attachmentEntity.setFileName(originFilename+&quot;.&quot;+suffix);
+    attachmentEntity.setFileUrl(&quot;D:\\fileUpload\\&quot;+fileNameNew);
+    attachmentEntity.setExpandedName(fileNameNew);
+    attachmentEntity.setSuffix(suffix);
+    attachmentEntity.setBusinessId(Integer.parseInt(request.getParameter(&quot;uid&quot;)));
+    attachmentService.save(attachmentEntity);
+}
+</code></pre><hr>
+<pre><code>工具类：
+public class FileUtil {
+    public String getFileNameNew() {
+        SysUserEntity sysUserEntity = ShiroUtils.getUserEntity();
+        SimpleDateFormat fmt = new SimpleDateFormat(&quot;yyyyMMddHHmmssSSS&quot;);
+        String returnStr = sysUserEntity.getEmployId()+&quot;_&quot;+fmt.format(new Date());
+        return returnStr;
+    }
+}
+</code></pre><hr>
+<h4 id="2、文件下载功能"><a href="#2、文件下载功能" class="headerlink" title="2、文件下载功能"></a>2、文件下载功能</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;1、HTML代码：<br></p>
+<pre><code>&lt;input type=&quot;button&quot; class=&quot;btn btn-primary&quot; click=&quot;downloadFile&quot; value=&quot;下载&quot; /&gt;
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;2、js代码<br></p>
+<pre><code>downloadFile: function(event) {
+    location.href = &quot;../scoregroup/downloading?expandedName=&quot; + vm.selfAssessment.expandedName+&apos;&amp;fileName=&apos;+vm.selfAssessment.fileName;
+}
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;3、这里提供两种下载方式，建议使用第二种<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;方式一：</p>
+<pre><code>@RequestMapping(value = &quot;/download&quot;)
+public ResponseEntity&lt;byte[]&gt; download(@RequestParam(name=&quot;expandedName&quot;)String expandedName, @RequestParam(name=&quot;fileName&quot;)String fileName,
+        HttpServletRequest request) {
+   HttpHeaders headers = new HttpHeaders();
+    try {
+        headers.setContentDispositionFormData(&quot;attachment&quot;, fileName);
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        // 获取物理路径
+        File file = new File(&quot;D:\\fileUpload\\&quot;+expandedName);
+        return new ResponseEntity&lt;byte[]&gt;(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return null;
+}
+</code></pre><hr>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;方式二：</p>
+<pre><code>@RequestMapping(value = &quot;/downloading&quot;)
+public void downloading(@RequestParam(name=&quot;expandedName&quot;)String expandedName, @RequestParam(name=&quot;fileName&quot;)String fileName,HttpServletResponse response) throws Exception {
+
+    File file=new File(&quot;D:\\fileUpload\\&quot;+expandedName);
+    InputStream in=new FileInputStream(file);
+    response.setCharacterEncoding(&quot;utf-8&quot;);
+    response.setContentType(&quot;multipart/form-data&quot;);
+    response.setHeader(&quot;Content-Disposition&quot;,&quot;attachment;fileName=&quot;+new String(fileName.getBytes(&quot;gbk&quot;),&quot;iso-8859-1&quot;));//避免文件名乱码
+
+    OutputStream out = null;
+    try {
+        out = response.getOutputStream();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    int b=0;
+    while((b=in.read())!=-1)
+        out.write(b);
+
+    out.flush();
+    in.close();
+    out.close();
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学术/" rel="tag"># 学术</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/23/NexT主题个性化设置/" rel="next" title="NexT主题个性化设置">
+                <i class="fa fa-chevron-left"></i> NexT主题个性化设置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Xiao.Peng.Li" />
+          <p class="site-author-name" itemprop="name">Xiao.Peng.Li</p>
+           
+              <p class="site-description motion-element" itemprop="description">程序猿发展历程</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/caobaoli" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#2、文件下载功能"><span class="nav-number">1.</span> <span class="nav-text">2、文件下载功能</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xiao.Peng.Li</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
