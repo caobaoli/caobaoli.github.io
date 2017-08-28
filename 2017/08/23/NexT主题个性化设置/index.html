@@ -93,18 +93,18 @@
 
 
 
-<meta name="description" content="next主题设置">
+<meta name="description" content="站点配置文件与主题配置文件： 站点配置文件是hexo根目录下的_config.yml 主题配置文件是主题（theme）文件夹下的_config.yml  添加分类、标签： 在站点跟目录下，打开git bash，输入 hexo new page &amp;quot;categories&amp;quot;  之后在站点目录中的source文件夹，会新增一个categories的文件夹里面有一个index.md，内容">
 <meta name="keywords" content="学术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NexT主题个性化设置">
 <meta property="og:url" content="http://yoursite.com/2017/08/23/NexT主题个性化设置/index.html">
 <meta property="og:site_name" content="Lover">
-<meta property="og:description" content="next主题设置">
+<meta property="og:description" content="站点配置文件与主题配置文件： 站点配置文件是hexo根目录下的_config.yml 主题配置文件是主题（theme）文件夹下的_config.yml  添加分类、标签： 在站点跟目录下，打开git bash，输入 hexo new page &amp;quot;categories&amp;quot;  之后在站点目录中的source文件夹，会新增一个categories的文件夹里面有一个index.md，内容">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-23T09:21:56.975Z">
+<meta property="og:updated_time" content="2017-08-25T09:52:32.314Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NexT主题个性化设置">
-<meta name="twitter:description" content="next主题设置">
+<meta name="twitter:description" content="站点配置文件与主题配置文件： 站点配置文件是hexo根目录下的_config.yml 主题配置文件是主题（theme）文件夹下的_config.yml  添加分类、标签： 在站点跟目录下，打开git bash，输入 hexo new page &amp;quot;categories&amp;quot;  之后在站点目录中的source文件夹，会新增一个categories的文件夹里面有一个index.md，内容">
 
 
 
@@ -353,8 +353,43 @@
       
 
       
-        <p>next主题设置</p>
-
+        <h4 id="站点配置文件与主题配置文件："><a href="#站点配置文件与主题配置文件：" class="headerlink" title="站点配置文件与主题配置文件："></a>站点配置文件与主题配置文件：</h4><ol>
+<li>站点配置文件是hexo根目录下的<code>_config.yml</code></li>
+<li>主题配置文件是主题（theme）文件夹下的<code>_config.yml</code></li>
+</ol>
+<h4 id="添加分类、标签："><a href="#添加分类、标签：" class="headerlink" title="添加分类、标签："></a>添加分类、标签：</h4><ol>
+<li><p>在站点跟目录下，打开git bash，输入</p>
+<pre><code>hexo new page &quot;categories&quot;
+</code></pre><p> 之后在站点目录中的source文件夹，会新增一个categories的文件夹里面有一个index.md，内容如下：</p>
+<pre><code>title: categories
+date: 2017-08-07 23:57:50
+type: &quot;categories&quot;
+</code></pre><p> 我们可以给index.md中添加(这样当我们给博客添加评论功能时，此页面就不包含)：</p>
+<pre><code>comments: false
+</code></pre></li>
+<li><p>创建标签页面类似</p>
+<pre><code>hexo new page &quot;tags&quot;
+</code></pre></li>
+</ol>
+<h4 id="NextT主题重点设置-主题配置文件-config-yml"><a href="#NextT主题重点设置-主题配置文件-config-yml" class="headerlink" title="NextT主题重点设置(主题配置文件_config.yml)"></a>NextT主题重点设置(主题配置文件_config.yml)</h4><ol>
+<li><p>设置图像栏</p>
+<pre><code>avatar: your avatar url
+</code></pre><p> your avatar url可以是完整的互联网URL，也可是本地图片路径即你在next\source\uploads\avatar.png</p>
+</li>
+<li><p>设置favicon图标</p>
+<pre><code>favicon: /uploads/favicon.ico
+</code></pre></li>
+<li><p>首页文章以摘要形式显示</p>
+<pre><code>auto_excerpt:
+      enable: true
+      length: 150
+</code></pre><p> 注意<code>length</code>代表显示摘要的截取字符长度</p>
+</li>
+<li><p>社交关联</p>
+<pre><code>social: github: https://github.com/caobaoli
+</code></pre></li>
+</ol>
+<h4 id="具体参考NtxtT官方文档配置"><a href="#具体参考NtxtT官方文档配置" class="headerlink" title="具体参考NtxtT官方文档配置"></a><a href="http://theme-next.iissnan.com/theme-settings.html" target="_blank" rel="external">具体参考NtxtT官方文档配置</a></h4>
       
     </div>
 
@@ -452,8 +487,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -526,6 +570,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#站点配置文件与主题配置文件："><span class="nav-number">1.</span> <span class="nav-text">站点配置文件与主题配置文件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加分类、标签："><span class="nav-number">2.</span> <span class="nav-text">添加分类、标签：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NextT主题重点设置-主题配置文件-config-yml"><span class="nav-number">3.</span> <span class="nav-text">NextT主题重点设置(主题配置文件_config.yml)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体参考NtxtT官方文档配置"><span class="nav-number">4.</span> <span class="nav-text">具体参考NtxtT官方文档配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
